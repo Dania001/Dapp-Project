@@ -1,12 +1,16 @@
+const Tether = artifacts.require("./Tether.sol");
+const Reward = artifacts.require("./Reward.sol");
+const DecentralBank = artifacts.require("./DecentralBank.sol");
 
-const Tether = artifacts.require("Tether");
-const Reward = artifacts.require("Reward");
-const DecentralBank = artifacts.require("DecentralBank");
+//require("chai");
+//.use(require("chai-as-promised"))
+//.should()
 
-
-require("chai");
-.use(require("chai-as-promised"))
-.should()
+var chai = require('chai');
+//var expect = chai.expect;
+//var assert = chai.assert;
+var chaiAsPromised = require("chai-as-promised");
+chai.use(chaiAsPromised);
 
 contract ("DecentralBank", ([owner, customer]) => {
 let tether, reward, decentralBank;
@@ -15,7 +19,7 @@ function tokens(number){
 return web3.utils.toWei(number, "ether")
 }
 
-before(async () =>{
+beforeEach(async () =>{
 //load contract
 tether = await Tether.new();
 reward = await Reward.new();
@@ -28,7 +32,7 @@ await reward.TransferReward(decentralBank.address,tokens("1000000"));
 await tether.transferMock(customer, tokens("100"), {from:owner});
 })
 
-describe("mock tether deployment",async()=>{
+describe("mock tether deployment", async () =>{
 it("should match the name successfully", async()=>{
 const name = await tether.name()
 assert.equal(name,"tether project")
