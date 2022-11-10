@@ -5,7 +5,7 @@ pragma solidity 0.8.17;
 contract Tether{
     string public name = "tether project";
     string public symbol = "USDT";
-    uint public totalSupply = 100000000000000000000;
+    uint public totalSupply = 1000000000000000000000000;
     uint public decimal = 18;
 
     event transfer(address indexed _from, address indexed _to, uint _value) ;
